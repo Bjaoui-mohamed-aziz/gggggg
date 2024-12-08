@@ -1,0 +1,54 @@
+<!-- <br>
+<div class="container">
+  <h1>Nouveau dossier médical</h1>
+  <br>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <label class="col-md-6" for="patient">
+          Patient
+          <select 
+            id="patient"
+            class="form-control"
+            [(ngModel)]="dossier.patient"
+            name="patient"
+            required
+            #patientCtrl="ngModel" 
+          >
+            <option *ngFor="let patient of patients" [ngValue]="patient">
+              {{ patient.nom }} {{ patient.prenom }}
+            </option>
+          </select>
+          <div *ngIf="patientCtrl.invalid && patientCtrl.touched" class="text-danger">
+            Veuillez selectionner un patient.
+          </div>
+        </label>
+      </div>
+
+      <div class="row mt-2 mb-2">
+        <label class="col-md-12" for="note">
+          Diagnostic
+          <textarea
+            class="form-control"
+            id="note"
+            [(ngModel)]="dossier.diagnostic"
+            name="diagnostic"
+            rows="5"
+            required
+            #diagnosticCtrl="ngModel" 
+          ></textarea>
+          <div *ngIf="diagnosticCtrl.invalid && diagnosticCtrl.touched" class="text-danger">
+            Veuillez saisir un diagnostic.
+          </div>
+        </label>
+      </div>
+
+      <button
+        (click)="createDossier()"
+        class="btn btn-primary btn-block"
+        [disabled]="!patientCtrl.valid || !diagnosticCtrl.valid" >
+        Ajouter dossier
+      </button>
+    </div>
+  </div>
+</div> -->

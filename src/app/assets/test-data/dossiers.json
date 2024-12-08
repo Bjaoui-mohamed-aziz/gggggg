@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "diagnostic": "diag 1",
+        "dateCreation": "2024-10-15T10:45:55.020551",
+        "patient": {
+            "id": 1,
+            "nom": "JJ",
+            "prenom": "Zeineb",
+            "cin": "22100000",
+            "sex": "F",
+            "telephone": "50211101",
+            "dateNaissance": "01/02"
+        }
+    },
+    {
+        "id": 2,
+        "diagnostic": "diag 2",
+        "dateCreation": "2024-10-15T10:45:59.71668",
+        "patient": {
+            "id": 1,
+            "nom": "JJ",
+            "prenom": "Zeineb",
+            "cin": "22100000",
+            "sex": "F",
+            "telephone": "50211101",
+            "dateNaissance": "01/02"
+        }
+    },
+    {
+        "id": 3,
+        "diagnostic": "diag 3",
+        "dateCreation": "2024-10-15T10:46:07.866487",
+        "patient": {
+            "id": 2,
+            "nom": "JJ",
+            "prenom": "Chaima",
+            "cin": "00100000",
+            "sex": "F",
+            "telephone": "00211101",
+            "dateNaissance": "01/02"
+        }
+    }
+]

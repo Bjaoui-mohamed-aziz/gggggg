@@ -1,0 +1,138 @@
+<div class="body">
+    
+
+  <br><br><br>
+  
+      <div class="container">
+        <div class="d-flex justify-content-between mb-3">
+          <div>
+            <button
+              class="btn btn-primary mb-2"
+              (click)="goCreateDiagPage(); showForm = !showForm" >
+              Ajouter nouveau diagnostic
+            </button>
+          </div>
+          <div class="d-flex justify-content-between" style="width: 33%;">
+            <div class="form-group">
+              <input 
+                type="text" name="search" id="search" placeholder="Entrer CIN patient" 
+                class="form-control" 
+                [(ngModel)]="this.searchCIN">
+            </div>
+            <div class="form-group">
+              <!-- <button
+                class="btn btn-primary mb-2"
+                (click)="getPatientDossiers()" >
+                Rechercher
+              </button> -->
+            </div>
+        </div>
+        </div>
+  
+  
+        <!-- Liste Dossiers -->
+  
+        <div class="card">
+          <div class="card-header mt-3">
+            <h3>Liste des Dossiers Médicaux</h3>
+          </div>
+          <div class="card-body">
+            <table class="table table-light text-center">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Patient</th>
+                  <th scope="col">cin</th>
+                  <!-- <th scope="col">Date Creation</th> -->
+                  <th scope="col">Diagnostics</th>
+                  <th scope="col">Supprimer</th>
+                </tr>
+              </thead>
+              
+              <tbody *ngFor="let patient of patients">
+                <tr>
+                  <th scope="col">{{patient.prenom}} {{patient.nom}}</th>
+                  <td>{{patient.cin}}</td>
+                  <!-- <td>{{date(dossier.dateCreation)}}</td> -->
+                  <td>
+                    <div class="d-flex justify-content-evenly">
+                      <button class="btn btn-primary" style="margin-right: 1%;"
+                      (click)="changeState(); setCurrPatient(patient); getListDiagnostics(patient.id);hideForm();">
+                      Voir Diagnostics</button>
+                    </div>
+                  </td>
+                  
+                  <td>
+                    <div class="">
+                      <!-- Delete -->
+                      <!-- <a
+                        class="btn btn-danger btn-sm"
+                        (click)="deleteDossier(dossier.id)">
+                        <i class="bi bi-trash-fill"></i>
+                      </a> -->
+                  </div>
+                  </td>
+                </tr>
+  
+                <!-- Diagnostic Row -->
+                
+                <tr *ngIf="patient.id == currentPatient.id && (showForm || showRow)">
+                  <td colspan="4" style="text-align: left; background-color:rgb(239, 239, 239);">
+                    <div class="container mt-2 mb-4" *ngIf="showRow && !showForm">
+
+                      <table class="table table-light text-center">
+                        <thead>
+                          <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Date Creation</th>
+                            <th scope="col">Diagnostic</th>
+                            <th scope="col">Actions</th>
+                          </tr>
+                        </thead>
+                        
+                        <tbody *ngFor="let diagnostic of diagnostics">
+                          <tr>
+                            <th scope="col" style="width: 5%;">{{diagnostic.id}} </th>
+                            <td >{{date(diagnostic.dateCreation)}}</td>
+                            <td style="width: 65%;">{{diagnostic.diagnostic}}</td>
+                            <td>
+                              <div class="d-flex justify-content-between">
+                                <!-- Edit -->
+                                <a 
+                                  class="btn btn-primary btn-sm" 
+                                  (click)="setCurrDiagnostic(diagnostic);showForm = !showForm; hideRow()">
+                                  <i class="bi bi-pen-fill" style="color: white;"></i>
+                                </a>
+                                <!-- Delete -->
+                                <a
+                                  class="btn btn-danger btn-sm"
+                                  (click)="deleteDiagnostic(diagnostic.id)">
+                                  <i class="bi bi-trash-fill"></i>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+  
+                    <div class="container mt-2 mb-2 d-flex" *ngIf="showForm">
+                      <textarea name="diagnostic" id="diagnostic" class="form-control me-4" style="width: 85%; background-color:rgb(247, 246, 246); "
+                        [(ngModel)]="this.currentDiagnostic.diagnostic"
+                        rows="4">
+                      </textarea>
+                      <div class="d-flex flex-column justify-content-evenly" style="width: 15%;">
+                        <button (click)="updateDiagnostic(this.currentDiagnostic.id); showForm = !showForm" class="btn btn-primary">Modifier</button>
+                        <button (click)="resetDiagnostic(this.currentDiagnostic)" class="btn btn-secondary">Annuler</button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  
+  
+  
+    </div>

@@ -1,0 +1,60 @@
+<div>
+  <div class="container">
+    <app-add-patient (patientAdded)="loadPatients()"></app-add-patient>
+
+    <!-- Patient List -->
+    <div class="card mt-3">
+      <div class="card-header">
+        <i class="icon-notebook"></i> Liste des Patients
+      </div>
+      <div class="card-body">
+        <table class="table text-center table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>CIN</th>
+              <th>Téléphone</th>
+              <th>Date de Naissance</th>
+              <th>Sexe</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let patient of patients">
+              <td>{{ patient.id }}</td>
+              <td>{{ patient.nom }}</td>
+              <td>{{ patient.prenom }}</td>
+              <td>{{ patient.cin }}</td>
+              <td>{{ patient.telephone }}</td>
+              <td>{{ patient.dateNaissance }}</td>
+              <td>{{ patient.sex }}</td>
+              <td>
+                <!-- <button
+                  class="btn btn-info btn-sm"
+                  (click)="viewPatient(patient)"
+                >
+                  View
+                </button> -->
+                <button
+                  class="btn btn-warning btn-sm"
+                  (click)="editPatient(patient)"
+                >
+                  Edit
+                </button>
+                <button
+                  class="btn btn-danger btn-sm"
+                  *ngIf="patient.id !== undefined"
+                  (click)="deletePatient(patient.id)"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

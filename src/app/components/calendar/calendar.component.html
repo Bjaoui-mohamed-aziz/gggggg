@@ -1,0 +1,213 @@
+<div class="container" cdkDropListGroup>
+
+    <div class="calendar-container">
+    <div class="calendar-header">
+      <div>
+        <h2
+          class="calendar-month"
+          *ngIf="currentView === 'month' || currentView === 'week'"
+        >
+          {{ viewDate | date : "MMMM" }}
+          <span>{{ viewDate | date : "y" }}</span>
+        </h2>
+        <h2 class="calendar-month" *ngIf="currentView === 'day'">
+          {{ viewDate | date : "d MMMM" }}
+          <span>{{ viewDate | date : "y" }}</span>
+        </h2>
+        <span class="calendar-dayname" *ngIf="currentView === 'day'">
+          {{ viewDate | date : "EEEE" }}
+        </span>
+      </div>
+      <button mat-raised-button class="add-rdv-button"  (click)="open(content)">
+        Add RDV
+      </button>
+      
+                <mat-button-toggle-group
+        class="calendar-view-toggle"
+        name="currentView"
+        aria-label="Calendar-View"
+      >
+      </mat-button-toggle-group>
+      <div class="calendar-controls">
+
+        <button
+          mat-icon-button
+          (click)="previous()"
+          (keydown.enter)="previous()"
+          (keydown.space)="previous()"
+        >
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <button
+          mat-raised-button
+          (keydown.enter)="viewToday()"
+          (keydown.space)="viewToday()"
+          (click)="viewToday()"
+        >
+          Today
+        </button>
+        <button
+          mat-icon-button
+          (click)="next()"
+          (keydown.enter)="next()"
+          (keydown.space)="next()"
+        >
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Month @start -->
+    <!-- Month View -->
+    <table
+      width="100%"
+      cellspacing="0"
+      cellpadding="0"
+      class="calendar-view-month"
+      *ngIf="currentView === 'month'"
+    >
+      <thead>
+        <tr>
+          <th *ngFor="let day of weekDays">
+            {{ day }}
+          </th>
+        </tr>
+      </thead>
+      <tbody cdkDropListGroup>
+        <tr *ngFor="let week of weeks">
+          <td
+            *ngFor="let date of week"
+            cdkDropList
+            [cdkDropListData]="rdvs"
+            [class.today]="isToday(date.date)"
+            [ngStyle]="{ opacity: isCurrentMonth(date.date) ? '1' : '0.5' }"
+          >
+            <div class="cell-overlay" tabindex="0"></div>
+            <div class="date">
+              {{ date.date.getDate() }}
+            </div>
+            <div class="appointments">
+              <ng-container *ngFor="let rdv of date.rdvs">
+                <div
+                  tabindex="0"
+                  class="rdv"
+                  cdkDrag
+                  cdkDragHandle
+                  [cdkDragData]="rdv"
+                  [ngStyle]="{ 'background-color': rdv.color }"
+                  (mouseenter)="showPopup(rdv, $event)"
+                  (mouseleave)="hidePopup()"
+                >
+                  <span>{{ rdv.patient?.prenom }} {{ rdv.patient?.nom }}</span>
+                </div>
+              </ng-container>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Popup -->
+    <div
+      class="popup"
+      *ngIf="hoveredRdv"
+      [style.top.px]="popupPosition.top"
+      [style.left.px]="popupPosition.left"
+    >
+      <p *ngIf="hoveredRdv.heurerdv">
+        Time: {{ hoveredRdv.heurerdv }} -
+        {{ calculateEndTime(hoveredRdv.heurerdv) }}
+      </p>
+      <p *ngIf="!hoveredRdv.heurerdv">Time: Not available</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Template -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Ajouter un nouveau Rendez-vous</h4>
+    <button
+      class="bbtn"
+      style="position: absolute; width: 60px; right: 0; top: 0; margin: 10px;"
+      (click)="modal.dismiss('Cross click')"
+    >
+      X
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #rdvForm="ngForm">
+      <div class="row">
+        <label class="col-md-6" for="patient_id">
+          Patient:
+          <select
+            id="patient_id"
+            name="patient_id"
+            class="form-control"
+            [(ngModel)]="newRdv.patient_id"
+            required
+          >
+            <option *ngFor="let patient of patients" [value]="patient.id">
+              {{ patient.nom }} {{ patient.prenom }}
+            </option>
+          </select>
+        </label>
+        <label class="col-md-6" for="daterdv">
+          Date (dd-MM-yyyy):
+          <input
+            type="date"
+            id="daterdv"
+            name="daterdv"
+            class="form-control"
+            [(ngModel)]="newRdv.daterdv"
+            placeholder="selectionner une date"
+            required
+          />
+        </label>
+      </div>
+      <div class="row mt-2">
+        <label class="col-md-6" for="heurerdv">
+          Heure (HH:mm):
+          <input
+            type="time"
+            name="heurerdv"
+            id="heurerdv"
+            class="form-control"
+            [(ngModel)]="newRdv.heurerdv"
+            placeholder="selectionner une heure"
+            required
+          />
+        </label>
+        <label class="col-md-6" for="note">
+          Note
+          <input
+            type="text"
+            id="note"
+            name="note"
+            class="form-control"
+            [(ngModel)]="newRdv.note"
+            placeholder="laisser une note"
+            required
+          />
+        </label>
+      </div>
+    </form>
+  </div>
+  <div class="btns">
+    <button
+      type="button"
+      class="fix btn btn-outline-secondary"
+      (click)="modal.dismiss('Cancel click')"
+    >
+      Annuler
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      [disabled]="!rdvForm.valid"
+      (click)="createRdv(); modal.close('Save click')"
+    >
+      Sauvegarder
+    </button>
+  </div>
+</ng-template>

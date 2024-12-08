@@ -1,0 +1,25 @@
+.btn-primary{
+    background-color: #20a8d8;
+}
+
+.body{
+    background-color: #e4e5e6;
+    min-height: 31em;
+}
+
+td, th, input, .btn{
+    font-size: 0.93em;
+}
+
+textarea{
+    font-size: 1em;
+}
+
+.card{
+    background-color: white; 
+    padding: 20px;
+}
+
+.btn{
+    letter-spacing: 0.07em;
+}

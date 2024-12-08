@@ -1,0 +1,357 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+    --header-height: 42px;
+    --total-weeks: 6;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.container {
+    max-width: 1140px;
+    margin: auto;
+}
+
+.add-rdv-button {
+    background-color: #007bff; /* Bright blue color */
+    color: #ffffff; /* White text */
+    font-weight: bold; /* Make text bold */
+    padding: 12px 20px; /* Add padding for a better look */
+    font-size: 16px; /* Slightly larger font */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+  }
+  
+  .add-rdv-button:hover {
+    background-color: #007bff; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
+  }
+  
+  .add-rdv-button:active {
+    background-color: #007bff; /* Even darker blue on click */
+    transform: scale(0.95); /* Slightly shrink when clicked */
+  }
+  
+  .add-rdv-button:focus {
+    outline: none; /* Remove default focus outline */
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    /* Full height for vertical centering */
+    background-color: #fff; /* Soft background color */
+    height: 60vh;
+  }
+  
+  .form-container {
+    width: 100%; /* Full width to allow horizontal spacing */
+    max-width: 1200px; /* Limit width */
+    max-height: 380px;
+    margin-top: 30px;
+    margin-left: 35px;
+    margin-right: 35px;
+    padding: 20px;
+    background-color: #f0f3f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-Affcontainer {
+    width: 100%; /* Full width to allow horizontal spacing */
+    max-width: 1200px; /* Limit width */
+    max-height: 300px;
+    margin-top: 30px;
+    margin-left: 35px;
+    margin-right: 35px;
+    padding: 20px;
+    background-color: #f0f3f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-title {
+    text-align: left;
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+  }
+  
+  .form-group:last-child {
+    margin-right: 0; /* Remove margin from the last item */
+  }
+  
+  .note-group {
+    flex: 1 100%; /* Ensure the note field spans full width */
+  }
+  input[type="text"]{
+  
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    margin-top: 3px;
+    border: 1px solid #d0d6ef;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 14px;
+  
+  }
+  
+  input[type="number"],
+  input[type="date"],
+  input[type="time"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 3px;
+    border: 1px solid #d0d6ef;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  
+
+  hr{
+    color: #87878a;
+  }
+  
+
+  
+  .fix{
+    margin-right: 10px;
+  }
+
+  
+  
+
+  
+  
+.cell-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    cursor: pointer;
+}
+.rdv {
+    position: relative;
+    z-index: 9;
+    padding: 5px 10px;
+    margin-top: 2px;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: lavender;
+    margin-left: 3px;
+    margin-right: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+  
+    span {
+      text-align: left;
+      line-height: 15px;
+    }
+}
+.calendar-view-month {
+    table-layout: fixed;
+    margin-top: 1rem;
+    thead {
+      th {
+            font-size: 22px;
+            font-weight: 100;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+       }
+    }
+    tbody {
+       tr {
+           td {
+                &:first-child {
+                    border-left: 1px solid #ddd;
+                }
+                vertical-align: top;
+                position: relative;
+                border-right: 1px solid #ddd;
+                height: 150px;
+                border-bottom: 1px solid #ddd;
+                padding: 3px 0;
+                &.selected {
+                    background-color: #bbdefb;
+                }
+  
+                &.today {
+                    background-color: #e3f2fd;
+                }
+                .date {
+                    text-align: right;
+                    font-size: 22px;
+                    font-weight: 100;
+                    padding: 5px 10px 0;
+                }
+            }
+        }
+    }
+}
+.calendar-view-week {
+    margin-top: 1rem;
+    thead {
+      th {
+            font-size: 22px;
+            font-weight: 100;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+        }
+    }
+    tbody {
+        tr {
+            td {
+                position: relative;
+                border-right: 1px solid #ddd;
+                height: 50px;
+                border-bottom: 1px solid #ddd;
+                padding: 3px 0;
+                width: calc(100% / 7);
+                &.calendar-slot-cell {
+                    width: 1%;
+                    font-size: 12px;
+                    font-weight: 100;
+                    border-right: 1px solid #ddd;
+                    padding-right: 5px;
+                    vertical-align: top;
+                    span {
+                        position: relative;
+                        top: -12px;
+                        background: #fff;
+                        width: 100%;
+                        display: block;
+                    }
+                }
+            }
+            &:last-child {
+                td {
+                    border-bottom: none;
+                    border-right: none;
+                    &.calendar-slot-cell {
+                        border-right: none;
+                    }
+                    .cell-overlay {
+                        display: none;
+                    }
+                }
+            }
+       }
+    }
+}
+.calendar-view-day {
+    margin-top: 1rem;
+    tr {
+        &:first-child {
+            td {
+                border-top: 1px solid #ddd;
+            }
+        }
+        td {
+            position: relative;
+            border-bottom: 1px solid #ddd;
+            height: 50px;
+            padding: 3px 0;
+            &.calendar-slot-cell {
+                font-size: 12px;
+                font-weight: 100;
+                border-right: 1px solid #ddd;
+                padding-right: 5px;
+                vertical-align: top;
+                span {
+                    position: relative;
+                    top: -12px;
+                    background: #fff;
+                    width: 100%;
+                    display: block;
+                }
+            }
+        }
+        &:last-child {
+            td {
+                border-bottom: none;
+                &.calendar-slot-cell {
+                    border-right: none;
+                }
+                .cell-overlay {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.popup {
+    position:absolute;
+    background-color: #fffefe;
+    border: 1px solid #8e8e8e;
+    border-radius: 5px;
+    padding: 10px 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    z-index: 1000;
+    white-space: nowrap;
+  }
+
+  
+.calendar-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: var(--header-height);
+      padding: 10px 0;
+  
+      h2{
+         margin: 0;
+      }
+  
+        .calendar-month {
+            font-weight: bold;
+            font-size: 50px;
+            span {
+                size: 200px;
+                font-weight: 100;
+            }
+        }
+  
+      .calendar-controls {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+}
+.black-icon {
+    color: black;
+    svg {
+      fill: black;
+    }
+}

@@ -1,0 +1,58 @@
+<div>
+    <div class="container">
+      <app-rdv-add (rdvAdded)="loadRdvs()"></app-rdv-add>
+    <app-update-rdv (rdvUpdated)="loadRdvs()"></app-update-rdv> <!-- Include UpdateRdvComponent here -->
+ 
+      <!-- Rdv List -->
+      <div class="card mt-3">
+        <div class="card-header">
+          <i class="icon-notebook"></i> Liste des Rendez-vous desPatients
+        </div>
+        <div class="card-body">
+          <table class="table text-center table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID_Patient</th>
+                    <th>Patient</th>
+                    <th>Date Rdv</th>
+                    <th>Heure Rdv</th>
+                    <th>Note</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let rdv of rdvs">
+                <td>{{rdv.patient?.id}}</td>
+                <td>{{rdv.patient?.prenom}} {{rdv.patient?.nom}}</td>
+                <td>{{rdv.daterdv}}</td>
+                <td>{{rdv.heurerdv}}</td>
+                <td>{{rdv.note}}</td>
+                <td>
+                  <!-- <button
+                    class="btn btn-info btn-sm"
+                    (click)="viewPatient(patient)"
+                  >
+                    View
+                  </button> -->
+                  <button
+                    class="btn btn-warning btn-sm"
+                    (click)="editRdv(rdv)"                    >
+                    Modifier
+                  </button>
+                  <button
+                    class="btn btn-danger btn-sm bb"
+                    *ngIf="rdv.id !== undefined"
+                    (click)="deleteRdv(rdv.id)"
+                  >
+                    Supprimer
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+

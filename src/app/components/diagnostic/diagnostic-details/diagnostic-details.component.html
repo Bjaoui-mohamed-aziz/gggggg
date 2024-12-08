@@ -1,0 +1,31 @@
+<br><br>
+
+<div class="container">
+    @if (diagnostic.id) {
+    
+        <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Patient</th>
+                        <td>{{ patient?.prenom }} {{ patient?.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date Création</th>
+                        <td>{{date(diagnostic.dateCreation)}}</td>
+                    </tr>
+                    <tr>
+                        <th>Diagnostic</th>
+                        <td>{{ diagnostic.diagnostic }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    } @else {
+        <p>Il n'existe pas un diagnostic avec cet ID.</p>
+    }
+
+</div>

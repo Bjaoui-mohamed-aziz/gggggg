@@ -1,0 +1,116 @@
+@if (patient.id){
+    <br><br>
+    <div class="container">
+        <h1>Dossier Médical de {{ patient.prenom }} {{ patient.nom }} </h1> 
+        <hr>
+
+        @if (dossier){
+
+        <div>
+            <button
+              class="btn btn-primary"
+              style="margin-right: 1%;"
+              (click)="goCreateDiagPage()" >
+              Ajouter nouveau diagnostic
+            </button>
+            <!-- <button 
+                class="btn btn-secondary" (click)="deleteDossier()">
+                Supprimer dossier
+            </button> -->
+        </div>
+        <br>
+
+
+     
+
+        <!-- Informations -->
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Patient</th>
+                            <td>{{ patient.prenom }} {{ patient.nom }}</td>
+                        </tr>
+                        <!-- <tr>
+                            <th>Date Création</th>
+                            <td>{{date(dossier.dateCreation)}}</td>
+                        </tr> -->
+                        <tr>
+                            <td colspan="2">
+                                <b>Diagnostics</b><br><br>
+                                <div class="container mt-2 mb-2 d-flex" *ngIf="showForm">
+                                    <textarea name="diagnostic" id="diagnostic" class="form-control me-4" style="width: 85%; background-color:rgb(247, 246, 246); "
+                                      [(ngModel)]="this.currentDiagnostic.diagnostic"
+                                      rows="4">
+                                    </textarea>
+                                    <div class="d-flex flex-column justify-content-evenly" style="width: 15%;">
+                                        <button (click)="updateDiagnostic(this.currentDiagnostic.id); showForm = !showForm" class="btn btn-primary">Modifier</button>
+                                        <button (click)="resetDiagnostic(this.currentDiagnostic)" class="btn btn-secondary">Annuler</button>
+                                    </div>
+                                  </div>
+                                <table class="table table-light text-center">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Date Creation</th>
+                                        <th scope="col">Diagnostic</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    
+                                    <tbody *ngFor="let diagnostic of dossier">
+                                    <tr>
+                                        <th scope="col" style="width: 5%;">{{diagnostic.id}} </th>
+                                        <td >{{date(diagnostic.dateCreation)}}</td>
+                                        <td style="width: 65%;">{{diagnostic.diagnostic}}</td>
+                                        <td>
+                                        <div class="d-flex justify-content-between">
+                                            <!-- Edit -->
+                                            <a 
+                                            class="btn btn-primary btn-sm" 
+                                            (click)="setCurrDiagnostic(diagnostic);showForm = !showForm; hideRow()">
+                                            <i class="bi bi-pen-fill" style="color: white;"></i>
+                                            </a>
+                                            <!-- Delete -->
+                                            <a
+                                            class="btn btn-danger btn-sm"
+                                            (click)="deleteDiagnostic(diagnostic.id)">
+                                            <i class="bi bi-trash-fill"></i>
+                                            </a>
+                                        </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        } @else {
+            <div>
+                <p>{{ patient.prenom }} {{ patient.nom }} n'a pas encore des diagnostics</p>
+
+                <button
+                class="btn btn-primary"
+                style="margin-right: 1%;"
+                (click)="goCreateDiagPage()" >
+                Ajouter nouveau diagnostic
+                </button>
+            </div>
+        }
+
+    </div>
+
+
+
+} @else {
+    <br><br>
+    <div class="container">
+        <h1>Dossier Médical </h1> 
+        <hr>
+        <p>Il n'existe pas un patient avec cet id.</p>
+    </div>
+} 

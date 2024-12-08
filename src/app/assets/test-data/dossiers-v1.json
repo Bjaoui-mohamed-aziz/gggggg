@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "diagnostic": "diag 1",
+        "dateCreation": "2024-10-15T10:45:55.020551",
+        "patient": "patient 1"
+    },
+    {
+        "id": 2,
+        "diagnostic": "diag 2",
+        "dateCreation": "2024-10-15T10:45:59.71668",
+        "patient": "patient 1"
+    },
+    {
+        "id": 3,
+        "diagnostic": "diag 3",
+        "dateCreation": "2024-10-15T10:46:07.866487",
+        "patient": "patient 2"
+    }
+]

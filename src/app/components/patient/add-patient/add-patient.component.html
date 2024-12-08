@@ -1,0 +1,124 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      Ajouter un nouveau Patient
+    </h4>
+    
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+    
+  </div>
+  <div class="modal-body">
+    <form #patientForm="ngForm">
+      <!-- Added a template reference variable for form validation -->
+      <div class="row">
+        <label class="col-md-6" for="nom">
+          Nom
+          <input
+            type="text"
+            id="nom"
+            name="nom"
+            class="form-control"
+            [(ngModel)]="newPatient.nom"
+            placeholder="Entrez le nom"
+            required
+          />
+        </label>
+        <label class="col-md-6" for="prenom">
+          Prénom
+          <input
+            type="text"
+            id="prenom"
+            name="prenom"
+            class="form-control"
+            [(ngModel)]="newPatient.prenom"
+            placeholder="Entrez le prénom"
+            required
+          />
+        </label>
+      </div>
+
+      <div class="row mt-2">
+        <label class="col-md-6" for="cin">
+          CIN
+          <input
+            type="number"
+            id="cin"
+            name="cin"
+            class="form-control"
+            [(ngModel)]="newPatient.cin"
+            placeholder="Entrez le CIN"
+            required
+          />
+        </label>
+        <label class="col-md-6" for="telephone">
+          Téléphone
+          <input
+            type="number"
+            id="telephone"
+            name="telephone"
+            class="form-control"
+            [(ngModel)]="newPatient.telephone"
+            placeholder="Entrez le téléphone"
+            required
+          />
+        </label>
+      </div>
+
+      <div class="row mt-2">
+        <label class="col-md-6" for="dateNaissance">
+          Date de Naissance
+          <input
+            type="date"
+            id="dateNaissance"
+            name="dateNaissance"
+            class="form-control"
+            [(ngModel)]="newPatient.dateNaissance"
+            required
+          />
+        </label>
+        <label class="col-md-6" for="sex">
+          Sexe
+          <select
+            id="sex"
+            class="form-control"
+            [(ngModel)]="newPatient.sex"
+            name="sex"
+            required
+          >
+            <option value="">Sélectionner</option>
+            <option value="M">Masculin</option>
+            <option value="F">Féminin</option>
+          </select>
+        </label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="modal.dismiss('Cancel click')"
+    >
+      Annuler
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      [disabled]="!patientForm.valid"
+      (click)="createPatient(); modal.close('Save click')"
+    >
+      Sauvegarder
+    </button>
+  </div>
+</ng-template>
+
+<button class="btn btn-sm btn-success" (click)="open(content)">
+  Nouveau Patient
+</button>
+
+<pre>{{ closeResult }}</pre>

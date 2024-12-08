@@ -1,0 +1,91 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        Ajouter un nouveau Rendez-vous
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <form #rdvForm="ngForm">
+        <!-- Added a template reference variable for form validation -->
+        <div class="row">
+          <label class="col-md-6" for="patient_id">
+            ID patient : 
+            <input
+              type="number"
+              id="patient_id"
+              name="patient_id"
+              class="form-control"
+              [(ngModel)]="newRdv.patient_id"
+              placeholder="Entrez l'id du patient"
+              required
+            />
+          </label>
+          <label class="col-md-6" for="daterdv">
+            Date (dd-MM-yyyy):
+            <input
+              type="date"
+              id="daterdv"
+              name="daterdv"
+              class="form-control"
+              [(ngModel)]="newRdv.daterdv"
+              placeholder="selectionner une date"
+              required
+            />
+          </label>
+        </div>
+
+        <div class="row mt-2">
+          <label class="col-md-6" for="heurerdv">
+            Heure (HH:mm):
+            <input
+              type="time"
+              name="heurerdv"
+              id="heurerdv"
+              class="form-control"
+              [(ngModel)]="newRdv.heurerdv"
+              placeholder="selectionner une heure"
+              required
+            />
+          </label>
+          <label class="col-md-6" for="note">
+            Note
+            <input
+              type="text"
+              id="note"
+              name="note"
+              class="form-control"
+              [(ngModel)]="newRdv.note"
+              placeholder="laisser une note"
+              required
+            />
+          </label>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        (click)="modal.dismiss('Cancel click')"
+      >
+        Annuler
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        [disabled]="!rdvForm.valid"
+        (click)="createRdv()"
+      >
+        Modifier
+      </button>
+    </div>
+  </ng-template>
+
+
+
